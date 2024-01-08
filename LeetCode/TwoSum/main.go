@@ -2,21 +2,14 @@ package main
 
 import "fmt"
 
-func makeValueToIndexMapping(nums []int) map[int]int {
-	mapping := make(map[int]int)
-	for idx, val := range nums {
-		mapping[val] = idx
-	}
-	return mapping
-}
-
 func twoSum(nums []int, target int) []int {
-	valToIdxMapping := makeValueToIndexMapping(nums)
+	mapping := make(map[int]int)
 	for idx, num := range nums {
 		subTarget := target - num
-		if sndIdx, found := valToIdxMapping[subTarget]; found && sndIdx != idx {
+		if sndIdx, found := mapping[subTarget]; found {
 			return []int{idx, sndIdx}
 		}
+		mapping[num] = idx
 	}
 	return make([]int, 2)
 }
